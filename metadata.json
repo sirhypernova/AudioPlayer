@@ -1,0 +1,8 @@
+{
+  "author": "SirHyperNova",
+  "description": "Audio Player in Minecraft",
+  "version": "1.1.1",
+  "entry": "index.js",
+  "helpMessage": "Type /audioplayer to start/stop music.",
+  "requires": ["AudioAPI", "PersistentData"]
+}
