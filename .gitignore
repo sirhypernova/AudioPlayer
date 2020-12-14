@@ -1,3 +1,4 @@
 assets/*.mp3
 assets/*.wav
 !assets/audio1.wav
+.persistantData.json
