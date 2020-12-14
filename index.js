@@ -16,14 +16,14 @@ let started = false;
 let lastScreenWidth = Renderer.screen.getWidth();
 let lastScreenHeight = Renderer.screen.getHeight();
 
-let posX = Renderer.screen.getWidth() / 2 - 75;
-let posY = Renderer.screen.getHeight() / 2 - 7.5;
+const maxWidth = 170;
+const maxHeight = 15;
+
+let posX = Renderer.screen.getWidth() / 2 - maxWidth / 2;
+let posY = Renderer.screen.getHeight() / 2 - maxHeight / 2;
 
 let posXOffset = config.position.x;
 let posYOffset = config.position.y;
-
-const maxWidth = 170;
-const maxHeight = 15;
 
 const GL11 = Java.type("org.lwjgl.opengl.GL11");
 
@@ -48,8 +48,8 @@ register("tick", () => {
   let currentWidth = Renderer.screen.getWidth();
   let currentHeight = Renderer.screen.getHeight();
   if (lastScreenHeight != currentHeight || lastScreenWidth != currentWidth) {
-    posX = currentWidth / 2 - 75;
-    posY = currentHeight / 2 - 7.5;
+    posX = currentWidth / 2 - maxWidth / 2;
+    posY = currentHeight / 2 - maxHeight / 2;
     lastScreenWidth = currentWidth;
     lastScreenHeight = currentHeight;
   }
@@ -135,7 +135,9 @@ function selectTrack(track) {
 register("renderOverlay", (event) => {
   if (!started) return;
 
-  const sr = new net.minecraft.client.gui.ScaledResolution(Client.getMinecraft());
+  const sr = new net.minecraft.client.gui.ScaledResolution(
+    Client.getMinecraft()
+  );
   const scaleFactor = sr.func_78325_e(); // getScaleFactor
   let drawPosX = posX + posXOffset;
   let drawPosY = posY + posYOffset;
@@ -178,7 +180,8 @@ register("renderOverlay", (event) => {
 
     let timeDisplay = `${positionMinutes}:${positionSeconds}/${lengthMinutes}:${lengthSeconds}`;
     let timeDisplayLength = Renderer.getStringWidth(timeDisplay);
-    shouldScrollTrack = Renderer.getStringWidth(trackName) > maxWidth - timeDisplayLength - 6
+    shouldScrollTrack =
+      Renderer.getStringWidth(trackName) > maxWidth - timeDisplayLength - 6;
     Renderer.drawStringWithShadow(
       timeDisplay,
       drawPosX + maxWidth - timeDisplayLength - 2,
@@ -193,7 +196,12 @@ register("renderOverlay", (event) => {
     } else {
       let scissorWidth = maxWidth - timeDisplayLength - 6;
       GL11.glEnable(GL11.GL_SCISSOR_TEST);
-      GL11.glScissor((drawPosX + 2) * scaleFactor, (Renderer.screen.getHeight() - drawPosY - maxHeight + 2) * scaleFactor, scissorWidth * scaleFactor, (maxHeight - 2) * scaleFactor);
+      GL11.glScissor(
+        (drawPosX + 2) * scaleFactor,
+        (Renderer.screen.getHeight() - drawPosY - maxHeight + 2) * scaleFactor,
+        scissorWidth * scaleFactor,
+        (maxHeight - 2) * scaleFactor
+      );
       Renderer.drawStringWithShadow(
         trackName,
         drawPosX + 2 - scrollPosition,
@@ -201,7 +209,10 @@ register("renderOverlay", (event) => {
       );
       Renderer.drawStringWithShadow(
         trackName,
-        drawPosX + 2 - scrollPosition + Renderer.getStringWidth("  " + trackName),
+        drawPosX +
+        2 -
+        scrollPosition +
+        Renderer.getStringWidth("  " + trackName),
         drawPosY + maxHeight / 2 - 4
       );
       GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -216,12 +227,13 @@ register("renderOverlay", (event) => {
   }
 });
 
-register('step', () => {
+register("step", () => {
   if (!shouldScrollTrack) return;
-  if (audio.isPaused()) return scrollPosition = 0;
+  if (audio.isPaused()) return (scrollPosition = 0);
   scrollPosition += 0.5;
-  if (scrollPosition >= Renderer.getStringWidth("  " + trackName)) scrollPosition = 0;
-}).setFps(60)
+  if (scrollPosition >= Renderer.getStringWidth("  " + trackName))
+    scrollPosition = 0;
+}).setFps(60);
 
 let isDragging = false;
 
