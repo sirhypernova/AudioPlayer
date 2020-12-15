@@ -1,9 +1,7 @@
-import PlayerManager from "./playerManager";
-
 export default class PlayerGUI {
   /**
    *
-   * @param {PlayerManager} manager
+   * @param {import('./playerManager').default} manager
    */
   constructor(manager) {
     this.manager = manager;
