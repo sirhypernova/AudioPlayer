@@ -97,13 +97,13 @@ export default class StatusBar {
     let drawPosX = this._posX + this._posXOffset;
     let drawPosY = this._posY + this._posYOffset;
     Renderer.setDrawMode(GL11.GL_LINE_LOOP);
-    let boxColor = Renderer.color(0, 0, 0, 128);
+    GL11.glLineWidth(2);
     Renderer.drawRect(
-      boxColor,
+      Renderer.color(0, 0, 0, 128),
       drawPosX - 1,
       drawPosY - 1,
       this.maxWidth + 2,
-      17
+      this.maxHeight + 2
     );
     Renderer.drawRect(
       Renderer.color(0, 0, 0, 70),

@@ -2,16 +2,6 @@
 /// <reference lib="es2015" />
 
 import AudioPlayer from "../AudioAPI";
-import {
-  Window,
-  UIImage,
-  UIText,
-  UIContainer,
-  RelativeConstraint,
-  CenterConstraint,
-  ConstantColorConstraint,
-  Animations,
-} from "../Elementa";
 
 import PlayerManager from "./playerManager";
 import StatusBar from "./statusBar";
