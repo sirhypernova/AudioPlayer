@@ -1,6 +1,8 @@
 import AudioPlayer from "../AudioAPI";
 import PVObject from "../PersistentData";
 
+import PlayerGui from "./gui";
+
 export default class PlayerManager {
   constructor() {
     this._localPath = "./config/ChatTriggers/modules/AudioPlayer/assets";
@@ -11,7 +13,7 @@ export default class PlayerManager {
      * @type {AudioPlayer}
      */
     this.audio = new AudioPlayer();
-    this.playerGui = new Gui();
+    this.playerGui = new PlayerGui(this);
     this.config = new PVObject("AudioPlayer", {
       position: {
         x: 0,

@@ -39,7 +39,7 @@ export default class StatusBar {
     });
 
     register("renderOverlay", () => {
-      if (manager.playerGui.isOpen()) return;
+      if (manager.playerGui.gui.isOpen()) return;
 
       this.draw();
     });

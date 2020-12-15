@@ -71,26 +71,3 @@ register("command", (arg1, ...arg2) => {
     manager.audio.play();
   }
 }).setName("audioplayer");
-
-const GuiKeybind = new KeyBind(
-  "Open AudioPlayer Gui",
-  Keyboard.KEY_P,
-  "AudioPlayer"
-);
-
-register("tick", () => {
-  if (GuiKeybind.isPressed()) {
-    // open gui
-    manager.playerGui.open();
-  }
-});
-
-manager.playerGui.registerDraw((x, y, t) => {
-  Renderer.drawRect(
-    Renderer.color(0, 0, 0, 70),
-    0,
-    0,
-    Renderer.screen.getWidth(),
-    Renderer.screen.getHeight()
-  );
-});
