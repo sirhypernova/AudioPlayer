@@ -141,6 +141,7 @@ declare module 'Elementa'{
   class UIWrappedText extends UIComponent{};
   class UITextInput extends UIComponent{};
   class UIImage extends UIComponent{};
+  class ScrollComponent extends UIComponent{};
 
   class PixelConstraint implements MasterConstraint{
     new(value: number, alignOpposite?: boolean): this;

@@ -5,8 +5,8 @@ import PlayerGui from "./gui";
 
 export default class PlayerManager {
   constructor() {
-    this._localPath = "./config/ChatTriggers/modules/AudioPlayer/assets";
-    this._defaultAudio = new java.io.File(this._localPath + "/audio1.wav");
+    this.localPath = "./config/ChatTriggers/modules/AudioPlayer/assets";
+    this._defaultAudio = new java.io.File(this.localPath + "/audio1.wav");
     this._unpauseAfterLoad = false;
 
     /**
@@ -41,7 +41,7 @@ export default class PlayerManager {
     if (this.audio.isPausedOrPlaying()) this.audio.stop();
     setTimeout(() => {
       try {
-        let toLoad = new java.io.File(this._localPath + `/${track}.wav`);
+        let toLoad = new java.io.File(this.localPath + `/${track}.wav`);
         this.audio.open(toLoad);
         setTimeout(() => this.audio.play(), 50);
         this.trackName = track;
@@ -49,7 +49,7 @@ export default class PlayerManager {
         ChatLib.chat(
           "&eUnable to load file. Loaded default song.".replaceFormatting()
         );
-        this.audio.open(defaultAudio);
+        this.audio.open(this._defaultAudio);
         setTimeout(() => {
           this.audio.play();
           this.audio.pause();
